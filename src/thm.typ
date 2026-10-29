@@ -587,7 +587,18 @@
     return (thm.ref-fmt)(thm + (ref-supplement: ref-supplement))
   }
 
-  set math.equation(numbering: x => metadata("thm-equation-numbering"))
+  let has-eq-tag(c) = {
+    if type(c) == array { return c.any(has-eq-tag) }
+    if type(c) != content { return false }
+    if c.func() == metadata {
+      let v = c.value
+      return v == "thm-qedhere" or (type(v) == dictionary and v.keys().contains("eq-tag"))
+    }
+    for (k, v) in c.fields() {
+      if has-eq-tag(v) { return true }
+    }
+    false
+  }
   show math.equation: eq => {
     show metadata.where(value: "thm-qedhere"): tag(thm-qed-show)
     show metadata: data => {
@@ -609,7 +620,17 @@
       }
     }
 
-    eq
+    if eq.numbering == none and eq.block and has-eq-tag(eq.body) {
+      math.equation(
+        block: eq.block,
+        numbering: x => metadata("thm-equation-numbering"),
+        number-align: eq.number-align,
+        supplement: eq.supplement,
+        eq.body
+      )
+    } else {
+      eq
+    }
   }
 
   show metadata.where(value: "thm-qedhere"): {
