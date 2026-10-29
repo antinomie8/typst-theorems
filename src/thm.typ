@@ -371,18 +371,18 @@
 
 // Show the qed symbol, update state
 #let thm-qed-show = {
-	thm-qed-done.update(stack => {
-		if stack.len() == 0 {
-			stack
-		} else {
-			stack.slice(0, -1) + (true,)
-		}
-	})
-	context if thm-qed-done.get().len() > 1 {
-		metadata("thm-qed-symbol-nested")
-	} else {
-		metadata("thm-qed-symbol")
-	}
+  thm-qed-done.update(stack => {
+    if stack.len() == 0 {
+      stack
+    } else {
+      stack.slice(0, -1) + (true,)
+    }
+  })
+  context if thm-qed-done.get().len() > 1 {
+    metadata("thm-qed-symbol-nested")
+  } else {
+    metadata("thm-qed-symbol")
+  }
 }
 
 /// If placed in a block equation/enum/list within a proof, place a qed symbol
@@ -548,8 +548,8 @@
   /// scope: (thm-rules: thm-rules-2)
   /// )
   /// -> content
-	qed-symbol: $qed$,
-	qed-symbol-nested: $square$,
+  qed-symbol: $qed$,
+  qed-symbol-nested: $square$,
   doc
 ) = {
 
@@ -618,7 +618,7 @@
   }
 
   show metadata.where(value: "thm-qed-symbol"): qed-symbol
-	show metadata.where(value: "thm-qed-symbol-nested"): qed-symbol-nested
+  show metadata.where(value: "thm-qed-symbol-nested"): qed-symbol-nested
 
   doc
 }
