@@ -587,7 +587,7 @@
     return (thm.ref-fmt)(thm + (ref-supplement: ref-supplement))
   }
 
-	set math.equation(numbering: x => metadata("thm-equation-numbering"))
+  set math.equation(numbering: x => metadata("thm-equation-numbering"))
   show math.equation: eq => {
     show metadata.where(value: "thm-qedhere"): tag(thm-qed-show)
     show metadata: data => {
