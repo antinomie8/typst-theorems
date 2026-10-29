@@ -617,6 +617,7 @@
         numbering: x => metadata("thm-equation-numbering"),
         number-align: eq.number-align,
         supplement: eq.supplement,
+        alt: eq.alt,
         eq.body
       )
     } else {
